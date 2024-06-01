@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const biasContent = document.getElementById('bias-content');
     const searchBiasesInput = document.getElementById('search-biases');
     const loadMoreBiasesButton = document.getElementById('loadMoreBiases');
+    const errorMessageContainer = document.getElementById('error-message');
     
     let allChampions = [];
     let displayedChampions = [];
@@ -23,6 +24,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const mbtiUrl = 'mbti.json';
     const biasesUrl = 'biases.json';
 
+    const displayError = (message) => {
+        errorMessageContainer.textContent = message;
+        errorMessageContainer.classList.remove('hidden');
+        setTimeout(() => {
+            errorMessageContainer.classList.add('hidden');
+        }, 5000);
+    };
+
     const fetchChampions = async () => {
         try {
             const response = await axios.get(apiUrl);
@@ -30,6 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
             filterChampions('');
         } catch (error) {
             console.error('Error fetching data:', error);
+            displayError('Failed to load champions data. Please try again later.');
         }
     };
 
@@ -39,6 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
             displayMBTI(response.data);
         } catch (error) {
             console.error('Error fetching MBTI data:', error);
+            displayError('Failed to load MBTI data. Please try again later.');
         }
     };
 
@@ -49,6 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
             filterBiases('');
         } catch (error) {
             console.error('Error fetching biases data:', error);
+            displayError('Failed to load biases data. Please try again later.');
         }
     };
 
