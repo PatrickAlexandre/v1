@@ -11,7 +11,10 @@ document.addEventListener("DOMContentLoaded", function() {
         dob: '1995-11-21',
         email: 'johanna@example.com',
         gender: 'female',
-        mbti: 'INFJ'
+        mbti: 'INFJ',
+        nap: 1.2,
+        weight: 70,
+        height: 175
     };
 
     // Espérance de vie moyenne selon le genre
@@ -48,6 +51,20 @@ document.addEventListener("DOMContentLoaded", function() {
     const remainingLifeInDays = maxLifeExpectancyDays - ageInDays;
     const healthPercentage = Math.floor((remainingLifeInDays / maxLifeExpectancyDays) * 100);
 
+    // Calculer la DEJ (Dépense Énergétique Journalière)
+    function calculateBMR(gender, weight, height, age) {
+        if (gender === 'male') {
+            return 88.362 + (13.397 * weight) + (4.799 * height) - (5.677 * age);
+        } else {
+            return 447.593 + (9.247 * weight) + (3.098 * height) - (4.330 * age);
+        }
+    }
+
+    const weight = characterData.weight; // poids en kg
+    const height = characterData.height; // taille en cm
+    const bmr = calculateBMR(characterData.gender, weight, height, age);
+    const dej = bmr * (characterData.nap || 1.2); // Utiliser une valeur par défaut pour le NAP
+
     // Mettre à jour les informations du personnage
     document.getElementById('characterName').innerText = characterData.characterName || 'Johanna';
     document.getElementById('characterTitle').innerText = characterData.characterTitle || 'Blood Champion';
@@ -61,12 +78,12 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Mettre à jour la barre de mana (en fonction des achievements)
     const currentResource = parseFloat(localStorage.getItem('currentResource')) || 0;
-    const maxResource = 800; // La valeur maximale des ressources
+    const maxResource = dej; // Utiliser la DEJ comme valeur maximale des ressources
     const resourceBar = document.querySelector('.resource-bar .bar-fill');
     const mpLabel = document.getElementById('mpLabel');
     const resourcePercentage = Math.floor((currentResource / maxResource) * 100);
     resourceBar.style.width = `${resourcePercentage}%`;
-    mpLabel.innerText = `${currentResource} / ${maxResource}`;
+    mpLabel.innerText = `${currentResource.toFixed(0)} / ${maxResource.toFixed(0)}`;
 
     // Appliquer les couleurs en fonction de la classe
     const classColor = classColors[characterData.characterClass] || { background: '#FFF', color: '#000' };

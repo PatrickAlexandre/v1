@@ -1,17 +1,19 @@
 const classColors = {
-    Warrior: { background: '#C79C6E', color: '#FFF' },
-    Mage: { background: '#69CCF0', color: '#FFF' },
-    Druid: { background: '#FF7D0A', color: '#FFF' },
-    Rogue: { background: '#FFF569', color: '#000' },
-    Priest: { background: '#FFFFFF', color: '#000' },
-    DeathKnight: { background: '#C41E3A', color: '#FFF' },
-    Shaman: { background: '#0070DE', color: '#FFF' },
-    Hunter: { background: '#ABD473', color: '#000' },
-    Warlock: { background: '#9482C9', color: '#FFF' },
-    Paladin: { background: '#F58CBA', color: '#FFF' },
-    Monk: { background: '#00FF96', color: '#000' },
-    DemonHunter: { background: '#A330C9', color: '#FFF' }
+    Warrior: { background: '#c69b6d', color: '#282828' },
+    Mage: { background: '#3fc7eb', color: '#282828' },
+    Druid: { background: '#ff7c0a', color: '#282828' },
+    Rogue: { background: '#fff468', color: '#282828' },
+    Priest: { background: '#ffffff', color: '#282828' },
+    DeathKnight: { background: '#c41e3a', color: '#282828' },
+    Shaman: { background: '#0070dd', color: '#282828' },
+    Hunter: { background: '#aad372', color: '#282828' },
+    Warlock: { background: '#8788ee', color: '#282828' },
+    Paladin: { background: '#f48cba', color: '#282828' },
+    Monk: { background: '#00ff98', color: '#282828' },
+    DemonHunter: { background: '#a330c9', color: '#282828' },
+    Evoker: { background: '#33937f', color: '#282828' }
 };
+
 
 const mbtiTypes = [
     'INTJ', 'INTP', 'ENTJ', 'ENTP',
