@@ -1,0 +1,12 @@
+[
+    { "bias": "Attentional Bias", "description": "The tendency to pay attention to some things while simultaneously ignoring others." },
+    { "bias": "Availability Heuristic", "description": "Making decisions based on the information that comes to mind most easily." },
+    { "bias": "Bandwagon Effect", "description": "The tendency to do (or believe) things because many other people do (or believe) the same." },
+    { "bias": "Confirmation Bias", "description": "The tendency to search for, interpret, and remember information in a way that confirms one's preexisting beliefs." },
+    { "bias": "Dunning-Kruger Effect", "description": "When people with low ability at a task overestimate their ability." },
+    { "bias": "Fundamental Attribution Error", "description": "The tendency to attribute others' actions to their character while attributing one's own behavior to external situational factors." },
+    { "bias": "Hindsight Bias", "description": "The inclination to see events as having been predictable after they have already occurred." },
+    { "bias": "Self-serving Bias", "description": "The common habit of a person taking credit for positive events or outcomes, but blaming outside factors for negative events." },
+    { "bias": "Anchoring", "description": "The tendency to rely too heavily on the first piece of information encountered (the 'anchor') when making decisions." },
+    { "bias": "Framing Effect", "description": "Drawing different conclusions from the same information, depending on how that information is presented." }
+]

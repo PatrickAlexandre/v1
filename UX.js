@@ -1,0 +1,148 @@
+document.addEventListener('DOMContentLoaded', () => {
+    const championsContainer = document.getElementById('champions');
+    const searchChampionsInput = document.getElementById('search-champions');
+    const sortChampionsSelect = document.getElementById('sort-champions');
+    const loadMoreChampionsButton = document.getElementById('loadMoreChampions');
+    const mbtiContent = document.getElementById('mbti-content');
+    const searchMBTIInput = document.getElementById('search-mbti');
+    const biasContent = document.getElementById('bias-content');
+    const searchBiasesInput = document.getElementById('search-biases');
+    
+    let allChampions = [];
+    let displayedChampions = [];
+    const championsPerPage = 8;
+    let currentPage = 1;
+
+    const apiUrl = 'https://ddragon.leagueoflegends.com/cdn/11.22.1/data/en_US/champion.json';
+    const mbtiUrl = 'mbti.json';
+    const biasesUrl = 'biases.json';
+
+    const fetchChampions = async () => {
+        try {
+            const response = await axios.get(apiUrl);
+            allChampions = Object.values(response.data.data);
+            filterChampions('');
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    };
+
+    const fetchMBTI = async () => {
+        try {
+            const response = await axios.get(mbtiUrl);
+            displayMBTI(response.data);
+        } catch (error) {
+            console.error('Error fetching MBTI data:', error);
+        }
+    };
+
+    const fetchBiases = async () => {
+        try {
+            const response = await axios.get(biasesUrl);
+            displayBiases(response.data);
+        } catch (error) {
+            console.error('Error fetching biases data:', error);
+        }
+    };
+
+    const displayChampions = (champions) => {
+        championsContainer.innerHTML = '';
+        champions.forEach(champion => {
+            const championCard = document.createElement('div');
+            championCard.className = 'bg-gray-800 p-4 rounded-lg shadow-lg';
+
+            championCard.innerHTML = `
+                <h2 class="text-2xl font-bold mb-2">${champion.name}</h2>
+                <p class="text-sm">${champion.title}</p>
+                <img src="https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${champion.id}_0.jpg" alt="${champion.name}" class="w-full h-auto mt-4 rounded-lg">
+            `;
+
+            championsContainer.appendChild(championCard);
+        });
+    };
+
+    const filterChampions = (searchTerm) => {
+        const filteredChampions = allChampions.filter(champion => 
+            champion.name.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+        const sortedChampions = sortChampions(filteredChampions);
+        displayedChampions = [];
+        currentPage = 1;
+        loadMore(sortedChampions);
+    };
+
+    const sortChampions = (champions) => {
+        const sortBy = sortChampionsSelect.value;
+        return _.sortBy(champions, [sortBy]);
+    };
+
+    const loadMore = (champions) => {
+        const start = (currentPage - 1) * championsPerPage;
+        const end = start + championsPerPage;
+        const championsToShow = champions.slice(start, end);
+        displayedChampions = displayedChampions.concat(championsToShow);
+        displayChampions(displayedChampions);
+        currentPage++;
+        if (displayedChampions.length >= champions.length) {
+            loadMoreChampionsButton.style.display = 'none';
+        } else {
+            loadMoreChampionsButton.style.display = 'block';
+        }
+    };
+
+    searchChampionsInput.addEventListener('input', (event) => {
+        filterChampions(event.target.value);
+    });
+
+    sortChampionsSelect.addEventListener('change', () => {
+        filterChampions(searchChampionsInput.value);
+    });
+
+    loadMoreChampionsButton.addEventListener('click', () => {
+        const searchTerm = searchChampionsInput.value.toLowerCase();
+        const filteredChampions = allChampions.filter(champion => 
+            champion.name.toLowerCase().includes(searchTerm)
+        );
+        loadMore(filteredChampions);
+    });
+
+    const displayMBTI = (mbtiData) => {
+        const searchTerm = searchMBTIInput.value.toLowerCase();
+        const filteredMBTI = mbtiData.filter(mbti =>
+            mbti.type.toLowerCase().includes(searchTerm)
+        );
+        mbtiContent.innerHTML = filteredMBTI.map(mbti => `
+            <div class="mb-4">
+                <h3 class="text-xl font-bold">${mbti.type}</h3>
+                <p>${mbti.description}</p>
+            </div>
+        `).join('');
+    };
+
+    const displayBiases = (biasesData) => {
+        const searchTerm = searchBiasesInput.value.toLowerCase();
+        const filteredBiases = biasesData.filter(bias =>
+            bias.bias.toLowerCase().includes(searchTerm)
+        );
+        biasContent.innerHTML = filteredBiases.map(bias => `
+            <div class="mb-4">
+                <h3 class="text-xl font-bold">${bias.bias}</h3>
+                <p>${bias.description}</p>
+            </div>
+        `).join('');
+    };
+
+    searchMBTIInput.addEventListener('input', async () => {
+        const response = await axios.get(mbtiUrl);
+        displayMBTI(response.data);
+    });
+
+    searchBiasesInput.addEventListener('input', async () => {
+        const response = await axios.get(biasesUrl);
+        displayBiases(response.data);
+    });
+
+    fetchChampions();
+    fetchMBTI();
+    fetchBiases();
+});

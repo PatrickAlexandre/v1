@@ -32,8 +32,8 @@
             background-color: #334155;
         }
         .bottom-bar {
-            background: #475569;
-            height: 50px;
+            background: #334155;
+            height: 60px;
             position: fixed;
             bottom: 0;
             left: 0;
@@ -43,25 +43,39 @@
             justify-content: space-around;
             color: #e2e8f0;
             font-size: 1.2rem;
+            padding: 0 10px;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .bottom-bar input[type="text"] {
+            background: #1e293b;
+            color: #e2e8f0;
+            border: 1px solid #64748b;
+            padding: 10px;
+            border-radius: 5px;
+            flex-grow: 1;
+            margin-right: 10px;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+        .bottom-bar input[type="text"]:focus {
+            background: #334155;
+            border-color: #38bdf8;
+            outline: none;
         }
         .profile-container {
             display: flex;
             flex-direction: column;
             align-items: center;
-            background-color: rgba(0, 0, 0, 0.5); /* Fond translucide */
-            padding: 10px; /* Réduire le padding */
-            border: 1px solid #ddd; /* Garder la bordure claire */
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 10px;
+            border: 1px solid #ddd;
             border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Ajouter une ombre plus sombre */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
             margin-bottom: 20px;
             transition: background-color 0.3s;
-            max-width: 200px; /* Limiter la largeur */
-            position: absolute; /* Positionner absolument */
-            bottom: 10%; /* Placer vers le bas de l'écran */
-            left: 10%; /* Placer vers la gauche de l'écran */
+            max-width: 200px;
         }
         .dark-mode .profile-container {
-            background-color: rgba(71, 85, 105, 0.5); /* Fond translucide en mode sombre */
+            background-color: rgba(71, 85, 105, 0.5);
             border-color: #64748b;
         }
         .profile-image {
@@ -169,9 +183,21 @@
             cursor: pointer;
             display: flex;
             align-items: center;
+            transition: color 0.3s;
         }
         .nav button:hover, .nav a:hover {
             color: #38bdf8;
+        }
+        .bottom-bar .icon-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #1e293b;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        .bottom-bar .icon-container:hover {
+            background: #334155;
+            transform: scale(1.1);
         }
     </style>
     <script defer src="data.js"></script>
@@ -211,19 +237,18 @@
         </div>
     </div>
     <div class="bottom-bar">
-        <div><i class="fas fa-comment"></i> Envoyer un message...</div>
+        <div class="flex items-center space-x-2 p-2 border rounded shadow-sm">
+            <i class="fas fa-comment text-gray-500"></i>
+            <input type="text" placeholder="Envoyer un message..." class="flex-grow p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500">
+        </div>
         <div class="nav">
-            <button id="editButton" class="hover:text-white"><i class="fas fa-user"></i> Infos</button>
-            <a href="Achievements.html"><i class="fas fa-trophy"></i> Quêtes</a>
+            <button id="editButton" class="hover:text-white"><i class="fas fa-user"></i> Personnage</button>
+            <a href="Achievements.html"><i class="fas fa-trophy"></i> Hauts faits</a>
         </div>
         <div class="flex justify-center space-x-4">
-            <!--INACTIVE First carriable Bag
-            <div class="p-2 bg-gray-700 rounded-lg shadow-lg transform hover:scale-110 transition duration-300">
-                <img src="https://wow.zamimg.com/images/wow/icons/large/inv_misc_bag_09.jpg" alt="Bag Icon 2" >
-            </div> -->
             <a href="Collections.html">
-                <div class="p-2 bg-gray-700 rounded-lg shadow-lg transform hover:scale-110 transition duration-300">
-                    <img src="https://wow.zamimg.com/images/wow/icons/large/inv_misc_bag_08.jpg" alt="Bag Icon 1" >
+                <div class="icon-container">
+                    <img src="https://wow.zamimg.com/images/wow/icons/large/inv_misc_bag_08.jpg" alt="Bag Icon 1">
                 </div>
             </a>
         </div>
