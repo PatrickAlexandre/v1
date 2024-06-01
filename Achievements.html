@@ -14,6 +14,11 @@
             font-family: 'Roboto', sans-serif;
             background-color: #f5f5f5;
             color: #333;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .dark-mode {
+            background-color: #1e293b;
+            color: #e2e8f0;
         }
         .header {
             background-color: #fff;
@@ -24,6 +29,12 @@
             font-size: 1.5rem;
             font-family: 'Playfair Display', serif;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .dark-mode .header {
+            background-color: #475569;
+            border-color: #64748b;
+            color: #e2e8f0;
         }
         .container {
             padding: 20px;
@@ -36,7 +47,11 @@
             margin: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             cursor: pointer;
-            transition: transform 0.3s;
+            transition: transform 0.3s, background-color 0.3s, border-color 0.3s;
+        }
+        .dark-mode .card {
+            background-color: #475569;
+            border-color: #64748b;
         }
         .card:hover {
             transform: scale(1.05);
@@ -45,19 +60,36 @@
             font-family: 'Playfair Display', serif;
             font-size: 1.5rem;
             margin-bottom: 10px;
+            color: #38bdf8;
         }
         .card-description {
             font-size: 1rem;
             color: #666;
+        }
+        .dark-mode .card-description {
+            color: #cbd5e1;
         }
     </style>
 </head>
 <body>
     <div class="header">Achievements</div>
     <div class="container">
-        <div class="card" onclick="increaseMana(10)">
+        <div class="card">
             <div class="card-title">Morning Miracle</div>
-            <div class="card-description">Increase your resource bar by 10 points.</div>
+            <div class="card-description">Increase your resource bar.</div>
+            <div class="morning-routine">
+                <ul>
+                    <li onclick="increaseMana(5)">Wake up (5 points)</li>
+                    <li onclick="increaseMana(10)">Immediately get out of bed (10 points)</li>
+                    <li onclick="increaseMana(15)">No phone (15 points)</li>
+                    <li onclick="increaseMana(20)">Cold shower (20 points)</li>
+                    <li onclick="increaseMana(10)">5 minutes of cardio (10 points)</li>
+                    <li onclick="increaseMana(15)">Meditation (15 points)</li>
+                    <li onclick="increaseMana(10)">Eat a healthy breakfast (10 points)</li>
+                    <li onclick="increaseMana(5)">Set 3 goals for the day (5 points)</li>
+                    <li onclick="increaseMana(10)">Grab a coffee & start hustling (10 points)</li>
+                </ul>
+            </div>
         </div>
         <div class="card" onclick="increaseMana(20)">
             <div class="card-title">Daily Quest</div>
@@ -71,12 +103,29 @@
     <script>
         function increaseMana(amount) {
             let currentResource = parseFloat(localStorage.getItem('currentResource')) || 0;
-            currentResource = Math.min(100, currentResource + amount); // Max at 100
+            currentResource = Math.min(800, currentResource + amount); // Max at 800
             localStorage.setItem('currentResource', currentResource);
 
             alert(`Resource bar increased by ${amount} points! Current resource: ${currentResource}`);
             window.location.href = 'index.html'; // Redirect to the main page to see the update
         }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const body = document.body;
+            if (localStorage.getItem('theme') === 'dark') {
+                body.classList.add('dark-mode');
+            }
+
+            const themeToggle = document.getElementById('themeToggle');
+            themeToggle.addEventListener('click', function() {
+                body.classList.toggle('dark-mode');
+                if (body.classList.contains('dark-mode')) {
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    localStorage.setItem('theme', 'light');
+                }
+            });
+        });
     </script>
 </body>
 </html>

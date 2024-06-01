@@ -14,6 +14,11 @@
             font-family: 'Roboto', sans-serif;
             background-color: #f5f5f5;
             color: #333;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .dark-mode {
+            background-color: #1e293b;
+            color: #e2e8f0;
         }
         .character-panel-content {
             background-color: #fff;
@@ -21,11 +26,14 @@
             border-radius: 10px;
             font-family: 'Playfair Display', serif;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s;
+        }
+        .dark-mode .character-panel-content {
+            background-color: #334155;
         }
         .bottom-bar {
-            background: url('/mnt/data/CaptureCastBar.JPG') no-repeat center center;
-            background-size: cover;
-            height: 100px;
+            background: #475569;
+            height: 50px;
             position: fixed;
             bottom: 0;
             left: 0;
@@ -33,7 +41,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #fff;
+            color: #e2e8f0;
             font-size: 1.2rem;
         }
         .profile-container {
@@ -46,13 +54,22 @@
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             margin-bottom: 20px;
+            transition: background-color 0.3s;
+        }
+        .dark-mode .profile-container {
+            background-color: #475569;
+            border-color: #64748b;
         }
         .profile-image {
             width: 100px;
             height: 100px;
-            border: 1px solid #ddd;
+            border: 2px solid #ddd;
             border-radius: 50%;
             margin-bottom: 10px;
+            transition: border-color 0.3s;
+        }
+        .dark-mode .profile-image {
+            border-color: #64748b;
         }
         .status-bars {
             display: flex;
@@ -66,6 +83,10 @@
             margin-bottom: 5px;
             width: 100%;
             position: relative;
+            transition: background-color 0.3s;
+        }
+        .dark-mode .status-bar {
+            background-color: #64748b;
         }
         .status-bar .bar {
             height: 20px;
@@ -73,6 +94,9 @@
             overflow: hidden;
             background-color: #ddd;
             position: relative;
+        }
+        .dark-mode .status-bar .bar {
+            background-color: #94a3b8;
         }
         .status-bar .bar-fill {
             content: '';
@@ -82,10 +106,10 @@
             left: 0;
         }
         .status-bar .health-bar .bar-fill {
-            background-color: #00ff00;
+            background-color: #22c55e;
         }
         .status-bar .resource-bar .bar-fill {
-            background-color: #0000ff;
+            background-color: #3b82f6;
         }
         .status-bar .labels {
             display: flex;
@@ -95,6 +119,9 @@
             position: absolute;
             width: 100%;
             top: -20px;
+        }
+        .dark-mode .status-bar .labels {
+            color: #e2e8f0;
         }
         .status-bar .bar-text {
             position: absolute;
@@ -113,6 +140,12 @@
             font-size: 1.5rem;
             font-family: 'Playfair Display', serif;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .dark-mode .header {
+            background-color: #475569;
+            border-color: #64748b;
+            color: #e2e8f0;
         }
         .nav {
             display: flex;
@@ -120,6 +153,11 @@
             padding: 10px;
             background-color: #fff;
             border-bottom: 1px solid #ddd;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .dark-mode .nav {
+            background-color: #475569;
+            border-color: #64748b;
         }
         .nav button, .nav a {
             color: #333;
@@ -130,16 +168,26 @@
             border: none;
             cursor: pointer;
         }
+        .dark-mode .nav button, .dark-mode .nav a {
+            color: #e2e8f0;
+        }
         .nav button:hover, .nav a:hover {
             color: #007bff;
         }
+        .dark-mode .nav button:hover, .dark-mode .nav a:hover {
+            color: #38bdf8;
+        }
     </style>
+    <script defer src="data.js"></script>
     <script defer src="app.js"></script>
 </head>
 <body>
-    <div class="header">Character Panel</div>
+    <div class="header">
+        Character Panel
+        <button id="themeToggle" class="ml-4 p-2 rounded bg-gray-200 dark:bg-gray-800">🌞</button>
+    </div>
     <div class="nav">
-        <button id="editButton" class="hover:text-white">Edit Character</button>
+        <button id="editButton" class="hover:text-white">Informations personnelles</button>
         <a href="Achievements.html">Achievements</a>
         <a href="#">Collections</a>
     </div>
@@ -149,12 +197,12 @@
                 <div class="profile-container">
                     <img id="profileImage" src="https://via.placeholder.com/150" alt="Profile Image" class="profile-image">
                     <h2 id="characterName" class="text-2xl font-bold text-pink-500">Johanna</h2>
-                    <p id="characterTitle" class="text-gray-600">Blood Champion</p>
-                    <p id="characterDetails" class="text-gray-600">110 Warrior (INFJ)</p>
+                    <p id="characterTitle" class="text-gray-400">Blood Champion</p>
+                    <p id="characterDetails" class="text-gray-400">110 Warrior (INFJ)</p>
                     <div class="status-bars">
                         <div class="status-bar">
                             <div class="labels">
-                                <span class="text-gray-600">HP</span>
+                                <span class="text-gray-400">HP</span>
                             </div>
                             <div class="bar health-bar">
                                 <div class="bar-fill" style="width: 0;"></div>
@@ -163,7 +211,7 @@
                         </div>
                         <div class="status-bar">
                             <div class="labels">
-                                <span class="text-gray-600">MP</span>
+                                <span class="text-gray-400">MP</span>
                             </div>
                             <div class="bar resource-bar">
                                 <div class="bar-fill" style="width: 0;"></div>
