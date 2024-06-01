@@ -39,12 +39,12 @@ document.addEventListener("DOMContentLoaded", function() {
     healthBar.style.width = `${healthPercentage}%`;
     hpLabel.innerText = `${healthRemaining.toFixed(2)} / ${maxLifeExpectancy}`;
 
-    // Mettre à jour la barre de mana (exemple avec des réalisations)
+    // Mettre à jour la barre de mana (en fonction des achievements)
+    const currentResource = parseFloat(localStorage.getItem('currentResource')) || 0;
     const resourceBar = document.querySelector('.resource-bar .bar-fill');
     const mpLabel = document.getElementById('mpLabel');
-    const achievementsPercentage = 50; // Placeholder value, should be replaced by actual achievements
-    resourceBar.style.width = `${achievementsPercentage}%`;
-    mpLabel.innerText = `${achievementsPercentage} / 100`;
+    resourceBar.style.width = `${currentResource}%`;
+    mpLabel.innerText = `${currentResource} / 100`;
 
     editButton.addEventListener('click', function() {
         window.location.href = 'edit.html';
