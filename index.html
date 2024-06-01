@@ -40,7 +40,7 @@
             right: 0;
             display: flex;
             align-items: center;
-            justify-content: center;
+            justify-content: space-around;
             color: #e2e8f0;
             font-size: 1.2rem;
         }
@@ -48,16 +48,20 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            background-color: #fff;
-            padding: 20px;
-            border: 1px solid #ddd;
+            background-color: rgba(0, 0, 0, 0.5); /* Fond translucide */
+            padding: 10px; /* Réduire le padding */
+            border: 1px solid #ddd; /* Garder la bordure claire */
             border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Ajouter une ombre plus sombre */
             margin-bottom: 20px;
             transition: background-color 0.3s;
+            max-width: 200px; /* Limiter la largeur */
+            position: absolute; /* Positionner absolument */
+            bottom: 10%; /* Placer vers le bas de l'écran */
+            left: 10%; /* Placer vers la gauche de l'écran */
         }
         .dark-mode .profile-container {
-            background-color: #475569;
+            background-color: rgba(71, 85, 105, 0.5); /* Fond translucide en mode sombre */
             border-color: #64748b;
         }
         .profile-image {
@@ -109,7 +113,7 @@
             background-color: #22c55e;
         }
         .status-bar .resource-bar .bar-fill {
-            background-color: #3b82f6;
+            background-color: #c69b6d;
         }
         .status-bar .labels {
             display: flex;
@@ -151,30 +155,22 @@
             display: flex;
             justify-content: space-around;
             padding: 10px;
-            background-color: #fff;
-            border-bottom: 1px solid #ddd;
-            transition: background-color 0.3s, color 0.3s;
-        }
-        .dark-mode .nav {
             background-color: #475569;
-            border-color: #64748b;
+            border-bottom: none;
+            color: #e2e8f0;
         }
         .nav button, .nav a {
-            color: #333;
+            color: inherit;
             font-family: 'Playfair Display', serif;
             font-size: 1.2rem;
             text-decoration: none;
             background: none;
             border: none;
             cursor: pointer;
-        }
-        .dark-mode .nav button, .dark-mode .nav a {
-            color: #e2e8f0;
+            display: flex;
+            align-items: center;
         }
         .nav button:hover, .nav a:hover {
-            color: #007bff;
-        }
-        .dark-mode .nav button:hover, .dark-mode .nav a:hover {
             color: #38bdf8;
         }
     </style>
@@ -184,47 +180,43 @@
 <body>
     <div class="header">
         Character Panel
-        <button id="themeToggle" class="ml-4 p-2">🌞</button>
-    </div>
-    <div class="nav">
-        <button id="editButton" class="hover:text-white">Informations personnelles</button>
-        <a href="Achievements.html">Achievements</a>
-        <a href="Collections.html">Collections</a>
+        <button id="themeToggle" class="ml-4 p-2"><i class="fas fa-sun"></i></button>
     </div>
     <div class="container mx-auto p-4">
-        <div id="characterPanel" class="mt-4 p-4 character-panel">
-            <div class="character-panel-content">
-                <div class="profile-container">
-                    <img id="profileImage" src="https://via.placeholder.com/150" alt="Profile Image" class="profile-image">
-                    <h2 id="characterName" class="text-4xl font-bold text-pink-700 shadow-lg">Johanna</h2>
-                    <p id="characterTitle" class="text-gray-700 text-xl border-b border-gray-500 pb-2">Blood Champion</p>
-                    <p id="characterDetails" class="text-gray-700 text-lg pb-2">110 Warrior (INFJ)</p>
-                    <div class="status-bars">
-                        <div class="status-bar">
-                            <div class="labels">
-                                <span class="text-gray-400">HP</span>
-                            </div>
-                            <div class="bar health-bar">
-                                <div class="bar-fill" style="width: 0;"></div>
-                                <div id="hpLabel" class="bar-text"></div>
-                            </div>
-                        </div>
-                        <div class="status-bar">
-                            <div class="labels">
-                                <span class="text-gray-400">MP</span>
-                            </div>
-                            <div class="bar resource-bar">
-                                <div class="bar-fill" style="width: 0;"></div>
-                                <div id="mpLabel" class="bar-text"></div>
-                            </div>
-                        </div>
+        <div class="profile-container" style="background-color: rgb(51, 147, 127);">
+            <img id="profileImage" src="https://via.placeholder.com/150" alt="Profile Image" class="profile-image">
+            <h2 id="characterName" class="text-4xl font-bold text-pink-700 shadow-lg" style="color: rgb(40, 40, 40);">Painperdu</h2>
+            <p id="characterTitle" class="text-gray-700 text-xl border-b border-gray-500 pb-2">Amélioration</p>
+            <p id="characterDetails" class="text-gray-700 text-lg pb-2">28 Evoker (IFTG)</p>
+            <div class="status-bars">
+                <div class="status-bar">
+                    <div class="labels">
+                        <span class="text-gray-400"><i class="fas fa-heart"></i> HP</span>
+                    </div>
+                    <div class="bar health-bar">
+                        <div class="bar-fill" style="width: 64%;"></div>
+                        <div id="hpLabel" class="bar-text">10420 / 29001</div>
+                    </div>
+                </div>
+                <div class="status-bar">
+                    <div class="labels">
+                        <span class="text-gray-400"><i class="fas fa-bolt"></i> Rage</span>
+                    </div>
+                    <div class="bar resource-bar">
+                        <div class="bar-fill" style="width: 2%;"></div>
+                        <div id="mpLabel" class="bar-text">70 / 2866</div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <div class="bottom-bar">
-        Envoyer un message...
+        <div><i class="fas fa-comment"></i> Envoyer un message...</div>
+        <div class="nav">
+            <button id="editButton" class="hover:text-white"><i class="fas fa-user"></i> Informations</button>
+            <a href="Achievements.html"><i class="fas fa-trophy"></i> Quêtes</a>
+            <a href="Collections.html"><i class="fas fa-box-open"></i> Inventaire</a>
+        </div>
     </div>
 </body>
 </html>
