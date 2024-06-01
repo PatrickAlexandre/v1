@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Character Panel</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap');
+
+        body {
+            font-family: 'Roboto', sans-serif;
+        }
+        .character-panel-content {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            border-radius: 10px;
+            font-family: 'Playfair Display', serif;
+        }
+        .bottom-bar {
+            background: url('/mnt/data/CaptureCastBar.JPG') no-repeat center center;
+            background-size: cover;
+            height: 100px;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+        }
+        .profile-container {
+            position: fixed;
+            bottom: 110px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+        }
+        .profile-image {
+            width: 80px;
+            height: 80px;
+        }
+        .status-bars {
+            margin-left: 10px;
+        }
+        .status-bar {
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 10px;
+            border-radius: 10px;
+            margin-top: 5px;
+            width: 200px;
+        }
+        .status-bar .bar {
+            height: 20px;
+            border-radius: 5px;
+            overflow: hidden;
+            position: relative;
+            margin-bottom: 5px;
+        }
+        .status-bar .bar::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+        }
+        .status-bar .health-bar::before {
+            width: 70%;
+            background-color: #00ff00;
+        }
+        .status-bar .resource-bar::before {
+            width: 50%;
+            background-color: #0000ff;
+        }
+        .status-bar .labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+        }
+    </style>
+    <script defer src="app.js"></script>
+</head>
+<body class="bg-gray-900 text-white">
+    <div class="container mx-auto p-4">
+        <div id="characterPanel" class="mt-4 p-4 character-panel">
+            <div class="character-panel-content">
+                <div class="flex items-center mb-4">
+                    <i class="fas fa-shield-alt text-yellow-500 text-2xl mr-4"></i>
+                    <div>
+                        <h2 id="characterName" class="text-2xl font-bold text-pink-500">Johanna</h2>
+                        <p id="characterTitle" class="text-white">Blood Champion</p>
+                    </div>
+                </div>
+                <div class="flex items-center justify-between">
+                    <p id="characterLevel" class="text-yellow-500">14565</p>
+                    <p id="characterRace" class="text-white">110 Human</p>
+                </div>
+                <div class="mt-4">
+                    <ul class="flex space-x-4">
+                        <li class="text-yellow-500 cursor-pointer">CHARACTER</li>
+                        <li class="text-white cursor-pointer">ACHIEVEMENTS</li>
+                        <li class="text-white cursor-pointer">COLLECTIONS</li>
+                    </ul>
+                </div>
+                <button id="editButton" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4">Edit Character</button>
+            </div>
+        </div>
+    </div>
+    <div class="profile-container">
+        <img id="profileImage" src="https://via.placeholder.com/150" alt="Profile Image" class="profile-image rounded-full cursor-pointer">
+        <div class="status-bars">
+            <div class="status-bar">
+                <div class="labels">
+                    <span class="text-white">HP</span>
+                    <span class="text-white">797 / 797</span>
+                </div>
+                <div class="bar health-bar"></div>
+            </div>
+            <div class="status-bar">
+                <div class="labels">
+                    <span class="text-white">MP</span>
+                    <span class="text-white">487 / 489</span>
+                </div>
+                <div class="bar resource-bar"></div>
+            </div>
+        </div>
+    </div>
+    <div class="bottom-bar"></div>
+</body>
+</html>
