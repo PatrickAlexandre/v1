@@ -7,11 +7,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const searchMBTIInput = document.getElementById('search-mbti');
     const biasContent = document.getElementById('bias-content');
     const searchBiasesInput = document.getElementById('search-biases');
+    const loadMoreBiasesButton = document.getElementById('loadMoreBiases');
     
     let allChampions = [];
     let displayedChampions = [];
     const championsPerPage = 8;
     let currentPage = 1;
+
+    let allBiases = [];
+    let displayedBiases = [];
+    const biasesPerPage = 8;
+    let currentBiasPage = 1;
 
     const apiUrl = 'https://ddragon.leagueoflegends.com/cdn/11.22.1/data/en_US/champion.json';
     const mbtiUrl = 'mbti.json';
@@ -39,7 +45,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const fetchBiases = async () => {
         try {
             const response = await axios.get(biasesUrl);
-            displayBiases(response.data);
+            allBiases = response.data;
+            filterBiases('');
         } catch (error) {
             console.error('Error fetching biases data:', error);
         }
@@ -68,7 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const sortedChampions = sortChampions(filteredChampions);
         displayedChampions = [];
         currentPage = 1;
-        loadMore(sortedChampions);
+        loadMoreChampions(sortedChampions);
     };
 
     const sortChampions = (champions) => {
@@ -76,7 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return _.sortBy(champions, [sortBy]);
     };
 
-    const loadMore = (champions) => {
+    const loadMoreChampions = (champions) => {
         const start = (currentPage - 1) * championsPerPage;
         const end = start + championsPerPage;
         const championsToShow = champions.slice(start, end);
@@ -103,7 +110,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const filteredChampions = allChampions.filter(champion => 
             champion.name.toLowerCase().includes(searchTerm)
         );
-        loadMore(filteredChampions);
+        loadMoreChampions(filteredChampions);
     });
 
     const displayMBTI = (mbtiData) => {
@@ -119,27 +126,52 @@ document.addEventListener('DOMContentLoaded', () => {
         `).join('');
     };
 
-    const displayBiases = (biasesData) => {
-        const searchTerm = searchBiasesInput.value.toLowerCase();
-        const filteredBiases = biasesData.filter(bias =>
-            bias.bias.toLowerCase().includes(searchTerm)
-        );
-        biasContent.innerHTML = filteredBiases.map(bias => `
-            <div class="mb-4">
+    const displayBiases = (biases) => {
+        biasContent.innerHTML = '';
+        biases.forEach(bias => {
+            const biasCard = document.createElement('div');
+            biasCard.className = 'mb-4';
+            biasCard.innerHTML = `
                 <h3 class="text-xl font-bold">${bias.bias}</h3>
                 <p>${bias.description}</p>
-            </div>
-        `).join('');
+            `;
+            biasContent.appendChild(biasCard);
+        });
     };
 
-    searchMBTIInput.addEventListener('input', async () => {
-        const response = await axios.get(mbtiUrl);
-        displayMBTI(response.data);
+    const filterBiases = (searchTerm) => {
+        const filteredBiases = allBiases.filter(bias => 
+            bias.bias.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+        displayedBiases = [];
+        currentBiasPage = 1;
+        loadMoreBiases(filteredBiases);
+    };
+
+    const loadMoreBiases = (biases) => {
+        const start = (currentBiasPage - 1) * biasesPerPage;
+        const end = start + biasesPerPage;
+        const biasesToShow = biases.slice(start, end);
+        displayedBiases = displayedBiases.concat(biasesToShow);
+        displayBiases(displayedBiases);
+        currentBiasPage++;
+        if (displayedBiases.length >= biases.length) {
+            loadMoreBiasesButton.style.display = 'none';
+        } else {
+            loadMoreBiasesButton.style.display = 'block';
+        }
+    };
+
+    searchBiasesInput.addEventListener('input', () => {
+        filterBiases(searchBiasesInput.value);
     });
 
-    searchBiasesInput.addEventListener('input', async () => {
-        const response = await axios.get(biasesUrl);
-        displayBiases(response.data);
+    loadMoreBiasesButton.addEventListener('click', () => {
+        const searchTerm = searchBiasesInput.value.toLowerCase();
+        const filteredBiases = allBiases.filter(bias => 
+            bias.bias.toLowerCase().includes(searchTerm)
+        );
+        loadMoreBiases(filteredBiases);
     });
 
     fetchChampions();

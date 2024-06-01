@@ -11,7 +11,7 @@
 <body class="bg-gray-900 text-white">
     <header class="bg-gray-800 p-4 shadow-lg">
         <nav class="container mx-auto flex justify-between items-center">
-            <a href="#" class="text-2xl font-bold">Mobile Game</a>
+            <a href="#" class="text-2xl font-bold">Labo de recherche Mobile</a>
             <ul class="flex space-x-4">
                 <li><a href="#champions-section" class="hover:text-blue-400">Champions</a></li>
                 <li><a href="#mbti-section" class="hover:text-blue-400">MBTI</a></li>
@@ -71,7 +71,7 @@
 
         <!-- Section Biais cognitifs -->
         <section id="bias-section">
-            <h2 class="text-3xl font-bold mb-6">Biais cognitifs</h2>
+            <h2 class="text-3xl font-bold mb-6">Historique de Biais cognitifs</h2>
             <div class="relative w-full mb-6">
                 <input id="search-biases" type="text" placeholder="Search biases..."
                     class="w-full p-2 pl-10 rounded-lg bg-gray-800 text-white focus:ring focus:ring-blue-500">
@@ -85,7 +85,13 @@
             <div id="bias-content" class="bg-gray-800 p-6 rounded-lg shadow-lg">
                 <!-- Contenu biais cognitifs ici -->
             </div>
+            <div class="text-center mt-6">
+                <button id="loadMoreBiases" class="bg-blue-500 text-white py-2 px-4 rounded-lg shadow-lg hover:bg-blue-400 transition">
+                    Afficher plus
+                </button>
+            </div>
         </section>
+
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
